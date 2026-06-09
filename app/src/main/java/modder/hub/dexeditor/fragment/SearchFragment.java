@@ -225,10 +225,9 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void refreshUI() {
         if (adapter != null) {
-            adapter.notifyDataSetChanged();
+            adapter.refreshVisibleNodes();
             updateSearchInfoBar();
         }
     }

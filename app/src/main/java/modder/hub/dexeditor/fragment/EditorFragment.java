@@ -118,12 +118,9 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
 
     private CodeEditor smaliEditor;
     private ProgressBar loadingProgress;
-    private TextView textviewLeft;
     private TextView textviewLineNo;
     private TextView methodName;
     private SymbolInputView symbol_input;
-    private LinearLayout linearLeft;
-    private LinearLayout linearRight;
 
     private EditorPositionManager positionManager;
     private SharedPreferences editor_prefs;
@@ -134,8 +131,6 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
     private boolean isClosing = false;
     private boolean isReload = false;
     private boolean isInitializing = true;
-    private String saveEvent = "";
-    private String isFileCreated = "";
     private String tempSmaliPath;
 
     private SmaliCursorUtils.MethodInfo currentMethodInfo;
@@ -217,12 +212,12 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
     private void initViews(View view) {
         smaliEditor = view.findViewById(R.id.smali_editor);
         loadingProgress = view.findViewById(R.id.loading_progress);
-        textviewLeft = view.findViewById(R.id.textview_left);
+        TextView textviewLeft = view.findViewById(R.id.textview_left);
         textviewLineNo = view.findViewById(R.id.textview_lineNo);
         methodName = view.findViewById(R.id.methodName);
         symbol_input = view.findViewById(R.id.symbol_input);
-        linearLeft = view.findViewById(R.id.linear_left);
-        linearRight = view.findViewById(R.id.linear_right);
+        LinearLayout linearLeft = view.findViewById(R.id.linear_left);
+        LinearLayout linearRight = view.findViewById(R.id.linear_right);
 
         View.OnLongClickListener selectMethodListener = new View.OnLongClickListener() {
             @Override
@@ -300,7 +295,7 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
         
         // Setup line numbers early for a better skeleton feel
         smaliEditor.setLineNumberEnabled(SettingsFragment.showLineNumbers(requireContext()));
-        
+
         // Postpone heavy language initialization to allow transition animation to start smoothly
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
@@ -333,10 +328,6 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
                     int position = smaliEditor.getCursor().getLeftLine();
                     positionManager.savePosition(className, position, smaliEditor.getCursor().getLeftColumn());
                 }
-                if (!saveEvent.isEmpty()) {
-                    isFileCreated = "";
-                }
-                saveEvent = "Saved";
                 isReload = false;
             }
         });
@@ -743,8 +734,8 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
         }
     }
 
-    // show smali labels cond, try catch, goto etc
-    // sora editor doesn't support like the mt manager so i used the list dialog
+    // show smali labels cond, try catch, goto etc.
+    // sora editor doesn't support like the mt manager, so I used the list dialog
     private void showLabelsCompletion(final String query) {
         int editorLineNumber = smaliEditor.getCursor().getLeftLine();
         List<String> labelList = SmaliCursorUtils.extractAllLabelLines(smaliEditor.getText(), currentMethodInfo);
@@ -839,7 +830,6 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
                 saveSmaliCodeToFile(smaliEditor.getText().toString(), tempSmaliPath, new FileSaveCallback() {
                     @Override
                     public void onFileSaved(String filePath) {
-                        isFileCreated = "true";
                         showSmaliNavigation(filePath, title, smaliEditor.getCursor().getLeftLine());
                     }
                 });

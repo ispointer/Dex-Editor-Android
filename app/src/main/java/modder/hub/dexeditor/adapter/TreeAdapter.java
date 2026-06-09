@@ -87,15 +87,14 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     // UI state flags
     private boolean isSelectionMode = false;
     private int initialLongPressPosition = -1; // Used for range selection
-    private boolean isHistory = false;
-    private boolean isModifiedList = false;
+    private final boolean isHistory;
+    private final boolean isModifiedList;
     private String highlightedFullName = null;
     private String searchQuery = null;
     private boolean isSearchList = false;
 
-    public TreeAdapter(Context context, List<TreeNode> rootNodes, OnNodeClickListener listener) {
-        this(context, rootNodes, listener, false, false);
-    }
+    // Caches for performance
+    private final java.util.Map<String, Boolean> deletedStateCache = new java.util.HashMap<>();
 
     public TreeAdapter(Context context, List<TreeNode> rootNodes, OnNodeClickListener listener, boolean isHistory) {
         this(context, rootNodes, listener, isHistory, false);
@@ -157,11 +156,37 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
      * Flattens the current tree structure based on which nodes are expanded.
      * Call this whenever the tree structure changes significantly.
      */
-    @SuppressLint("NotifyDataSetChanged")
     public void refreshVisibleNodes() {
+        final List<TreeNode> oldList = new ArrayList<>(visibleNodes);
         visibleNodes.clear();
         addVisibleNodesRecursive(rootNodes, 0);
-        notifyDataSetChanged();
+
+        androidx.recyclerview.widget.DiffUtil.calculateDiff(new androidx.recyclerview.widget.DiffUtil.Callback() {
+            @Override
+            public int getOldListSize() {
+                return oldList.size();
+            }
+
+            @Override
+            public int getNewListSize() {
+                return visibleNodes.size();
+            }
+
+            @Override
+            public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                return oldList.get(oldItemPosition).getFullName().equals(visibleNodes.get(newItemPosition).getFullName());
+            }
+
+            @Override
+            public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                TreeNode oldNode = oldList.get(oldItemPosition);
+                TreeNode newNode = visibleNodes.get(newItemPosition);
+                return oldNode.isExpanded() == newNode.isExpanded() &&
+                        oldNode.isChecked() == newNode.isChecked() &&
+                        Objects.equals(oldNode.getName(), newNode.getName()) &&
+                        oldNode.getDepth() == newNode.getDepth();
+            }
+        }).dispatchUpdatesTo(this);
     }
 
     private void addVisibleNodesRecursive(List<TreeNode> nodes, int depth) {
@@ -239,7 +264,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                             listener.onNodeClick(node);
                         }
                     } else {
-                        toggleChecked(node, pos);
+                        toggleChecked(node);
                     }
                 }
             }
@@ -249,7 +274,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 int pos = holder.getBindingAdapterPosition();
-                if (pos != RecyclerView.NO_POSITION) toggleChecked(visibleNodes.get(pos), pos);
+                if (pos != RecyclerView.NO_POSITION) toggleChecked(visibleNodes.get(pos));
             }
         });
 
@@ -266,7 +291,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         return holder;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TreeNode node = visibleNodes.get(position);
@@ -279,7 +303,10 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                     if (holder.arrow.getVisibility() != View.VISIBLE) {
                         holder.arrow.setVisibility(View.VISIBLE);
                     }
-                    holder.arrow.setRotation(node.isExpanded() ? 45 : 0);
+                    float targetRotation = node.isExpanded() ? 45 : 0;
+                    if (holder.arrow.getRotation() != targetRotation) {
+                        holder.arrow.setRotation(targetRotation);
+                    }
                 } else {
                     if (holder.arrow.getVisibility() != View.GONE) {
                         holder.arrow.setVisibility(View.GONE);
@@ -295,7 +322,10 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                     holder.iconBackground.setVisibility(View.VISIBLE);
                 }
                 holder.icon.setImageResource(R.drawable.ic_folder_mt);
-                holder.iconBackground.setBackground(folderDrawable);
+                if (holder.lastBackgroundType != TYPE_DIRECTORY) {
+                    holder.iconBackground.setBackground(folderDrawable);
+                    holder.lastBackgroundType = TYPE_DIRECTORY;
+                }
                 holder.iconBackground.setElevation(5);
                 break;
             case TYPE_SNIPPET:
@@ -311,7 +341,10 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 if (holder.iconBackground.getVisibility() != View.GONE) {
                     holder.iconBackground.setVisibility(View.GONE);
                 }
-                holder.iconBackground.setBackground(null);
+                if (holder.lastBackgroundType != TYPE_SNIPPET) {
+                    holder.iconBackground.setBackground(null);
+                    holder.lastBackgroundType = TYPE_SNIPPET;
+                }
                 break;
             case TYPE_CLASS:
                 if (holder.arrow.getVisibility() != View.GONE) {
@@ -328,7 +361,10 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 }
                 holder.smaliSymbol.setText("C");
                 holder.smaliSymbol.setTypeface(Typeface.MONOSPACE);
-                holder.iconBackground.setBackground(classDrawable);
+                if (holder.lastBackgroundType != TYPE_CLASS) {
+                    holder.iconBackground.setBackground(classDrawable);
+                    holder.lastBackgroundType = TYPE_CLASS;
+                }
                 holder.iconBackground.setElevation(5);
                 break;
         }
@@ -338,12 +374,20 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             holder.name.setSingleLine(true);
             CharSequence cached = node.getCachedSpannedName();
             if (cached != null) {
-                holder.name.setText(cached);
+                if (holder.lastName != cached) {
+                    holder.name.setText(cached);
+                    holder.lastName = cached;
+                }
             } else {
                 highlightSnippet(holder.name, node, searchQuery);
+                holder.lastName = node.getCachedSpannedName();
             }
         } else {
-            holder.name.setText(node.getName());
+            String nameText = node.getName();
+            if (holder.lastName != nameText) {
+                holder.name.setText(nameText);
+                holder.lastName = nameText;
+            }
             holder.name.setSingleLine(false);
         }
 
@@ -361,7 +405,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
 
         // Apply strike-through for deleted classes in history and search
         if ((isHistory || isSearchList) && (type == TYPE_CLASS || type == TYPE_SNIPPET)) {
-            boolean isDeleted = DexEditorActivity.classTree != null && !DexEditorActivity.classTree.classMap.containsKey(node.getFullName());
+            boolean isDeleted = isNodeDeletedCached(node);
             if (isDeleted) {
                 holder.name.setPaintFlags(holder.name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 holder.subtitle.setPaintFlags(holder.subtitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -375,14 +419,21 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
 
         // 4. Background
         if (type == TYPE_SNIPPET) {
-            holder.itemContent.setBackgroundResource(R.drawable.item_background);
+            if (holder.lastBackgroundRes != R.drawable.item_background) {
+                holder.itemContent.setBackgroundResource(R.drawable.item_background);
+                holder.lastBackgroundRes = R.drawable.item_background;
+            }
         } else {
             if (highlightedFullName != null && highlightedFullName.equals(node.getFullName())) {
                 holder.itemContent.setBackgroundColor(0xFFE1F5FE);
+                holder.lastBackgroundRes = -1;
             } else {
-                android.util.TypedValue outValue = new android.util.TypedValue();
-                context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-                holder.itemContent.setBackgroundResource(outValue.resourceId);
+                if (holder.lastBackgroundRes != 0) {
+                    android.util.TypedValue outValue = new android.util.TypedValue();
+                    context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
+                    holder.itemContent.setBackgroundResource(outValue.resourceId);
+                    holder.lastBackgroundRes = 0;
+                }
             }
         }
 
@@ -405,7 +456,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 indent = indentPerLevel;
             } else if (type == TYPE_SNIPPET) {
                 // Align Snippet text with Class text
-                // Class text starts at: Indent(24) + Checkbox + IconWidth(28) + Padding(6)
+                //  starts at: Indent(24) + Checkbox + IconWidth(28) + Padding(6)
                 indent = indentPerLevel + checkboxWidth + iconWidth;
             } else {
                 indent = 0;
@@ -423,8 +474,10 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         int topBottomPadding = (type == TYPE_SNIPPET) ? 4 : 2;
         if (holder.lastIndent != indent || holder.lastTopBottomPadding != topBottomPadding) {
             ViewGroup.LayoutParams lp = holder.indentSpacer.getLayoutParams();
-            lp.width = indent;
-            holder.indentSpacer.setLayoutParams(lp);
+            if (lp.width != indent) {
+                lp.width = indent;
+                holder.indentSpacer.setLayoutParams(lp);
+            }
 
             holder.itemContent.setPadding(itemPaddingLeft, topBottomPadding, (int) (24 * density), topBottomPadding);
             holder.lastIndent = indent;
@@ -444,16 +497,21 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 }
             }
         }
-        holder.divider.setVisibility(showDivider ? View.VISIBLE : View.GONE);
+        if (holder.divider.getVisibility() != (showDivider ? View.VISIBLE : View.GONE)) {
+            holder.divider.setVisibility(showDivider ? View.VISIBLE : View.GONE);
+        }
 
         // Align divider with text
         if (showDivider) {
-             LinearLayout.LayoutParams dlp = (LinearLayout.LayoutParams) holder.divider.getLayoutParams();
              // Text starts after: checkbox + icon + textPadding
              int textStartOffset = checkboxWidth + (type != TYPE_SNIPPET ? iconWidth : 0) + textPadding + itemPaddingLeft;
-             dlp.leftMargin = textStartOffset;
-             dlp.rightMargin = (int) (16 * density);
-             holder.divider.setLayoutParams(dlp);
+             if (holder.lastDividerMargin != textStartOffset) {
+                 LinearLayout.LayoutParams dlp = (LinearLayout.LayoutParams) holder.divider.getLayoutParams();
+                 dlp.leftMargin = textStartOffset;
+                 dlp.rightMargin = (int) (16 * density);
+                 holder.divider.setLayoutParams(dlp);
+                 holder.lastDividerMargin = textStartOffset;
+             }
         }
 
         // 6. Checkbox
@@ -534,9 +592,9 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             if (isHistory) {
                 showHistoryPopupMenu(v, node, pos);
             } else if (isModifiedList) {
-                if (!node.isDirectory()) showModifiedPopupMenu(v, node, pos);
+                if (!node.isDirectory()) showModifiedPopupMenu(v, node);
             } else if (isSearchList) {
-                if (!node.isDirectory() && !node.isSnippet()) showSearchPopupMenu(v, node, pos);
+                if (!node.isDirectory() && !node.isSnippet()) showSearchPopupMenu(v, node);
             } else {
                 showPopupMenu(v, node, pos);
             }
@@ -547,7 +605,17 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         return DexEditorActivity.classTree != null && !DexEditorActivity.classTree.classMap.containsKey(node.getFullName());
     }
 
-    private void showSearchPopupMenu(View view, TreeNode node, int pos) {
+    private boolean isNodeDeletedCached(TreeNode node) {
+        String fullName = node.getFullName();
+        Boolean deleted = deletedStateCache.get(fullName);
+        if (deleted == null) {
+            deleted = DexEditorActivity.classTree != null && !DexEditorActivity.classTree.classMap.containsKey(fullName);
+            deletedStateCache.put(fullName, deleted);
+        }
+        return deleted;
+    }
+
+    private void showSearchPopupMenu(View view, TreeNode node) {
         boolean isDeleted = isNodeDeleted(node);
         PopupMenu popup = new PopupMenu(context, view);
         popup.getMenu().add("Copy");
@@ -628,7 +696,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void toggleChecked(TreeNode node, int position) {
+    private void toggleChecked(TreeNode node) {
         boolean newState;
         CheckState currentState = getCheckState(node);
         if (node.isDirectory()) {
@@ -709,7 +777,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void showModifiedPopupMenu(View view, TreeNode node, int position) {
+    private void showModifiedPopupMenu(View view, TreeNode node) {
         boolean isDeleted = isNodeDeleted(node);
         PopupMenu popup = new PopupMenu(context, view);
         popup.getMenu().add(0, 0, 0, "Copy");
@@ -849,6 +917,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     }
 
     private void removeItem(TreeNode node, int position) {
+        deletedStateCache.remove(node.getFullName());
         TreeNode parent = node.getParent();
         if (parent != null) {
             parent.getChildren().remove(node);
@@ -860,6 +929,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     }
 
     private void removeEmptyParentsRecursive(TreeNode node) {
+        deletedStateCache.remove(node.getFullName());
         if (node.isDirectory() && node.getChildren().isEmpty()) {
             TreeNode parent = node.getParent();
             if (parent != null) {
@@ -874,6 +944,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     @SuppressLint("NotifyDataSetChanged")
     public void removeSelectedNodes() {
         // Remove from rootNodes recursively
+        deletedStateCache.clear();
         removeSelectedRecursive(rootNodes);
         refreshVisibleNodes();
     }
@@ -975,13 +1046,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         return visibleNodes.size();
     }
 
-    private GradientDrawable createDrawable(int cornerRadius, int color) {
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setCornerRadius(cornerRadius);
-        gradientDrawable.setColor(color);
-        return gradientDrawable;
-    }
-
     private enum CheckState {
         CHECKED, UNCHECKED, PARTIAL
     }
@@ -1022,6 +1086,10 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         // Cache last values to avoid redundant layout triggers
         int lastIndent = -1;
         int lastTopBottomPadding = -1;
+        int lastDividerMargin = -1;
+        int lastBackgroundType = -1;
+        int lastBackgroundRes = -2;
+        CharSequence lastName = null;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

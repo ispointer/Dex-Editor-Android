@@ -31,8 +31,6 @@
 
 package modder.hub.dexeditor;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -45,19 +43,15 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
 import com.github.angads25.filepicker.model.DialogProperties;
 import com.github.angads25.filepicker.view.FilePickerDialog;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,19 +62,15 @@ import modder.hub.dexeditor.utils.FileUtil;
 
 public class MainActivity extends AppCompatActivity implements FilePermissionManager.PermissionCallback {
     // UI Components
-    private AppBarLayout appBarLayout;
-    private CoordinatorLayout coordinatorLayout;
     private Toolbar toolbar;
     private EditText dexFilePathEditText;
     private MaterialButton pickDexFileButton;
     private MaterialButton openDexFileButton;
-    private TextInputLayout textInputLayout;
     private TextView githubLinkTextView;
 
     private SharedPreferences sharedPreferences;
     private final Intent dexEditorIntent = new Intent();
     private final Intent githubIntent = new Intent();
-    private final ArrayList<HashMap<String, Object>> dataList = new ArrayList<>();
 
     private ActivityResultLauncher<Intent> manageStorageLauncher;
     private ActivityResultLauncher<String[]> requestPermissionLauncher;
@@ -160,9 +150,7 @@ public class MainActivity extends AppCompatActivity implements FilePermissionMan
     }
 
     // Initialize UI components and set up listeners
-    private void initialize(Bundle savedInstanceState) {
-        appBarLayout = findViewById(R.id._app_bar);
-        coordinatorLayout = findViewById(R.id._coordinator);
+    private void initialize(Bundle ignoredSavedInstanceState) {
         toolbar = findViewById(R.id._toolbar);
         setSupportActionBar(toolbar);
 
@@ -179,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements FilePermissionMan
             }
         });
 
-        textInputLayout = findViewById(R.id.textinput1);
         pickDexFileButton = findViewById(R.id.materialbutton1);
         openDexFileButton = findViewById(R.id.open_dex);
         githubLinkTextView = findViewById(R.id.textview1);
@@ -196,12 +183,12 @@ public class MainActivity extends AppCompatActivity implements FilePermissionMan
             }
         });
 
-    
+
 
         openDexFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 if (dexFilePathEditText.getText().toString().isEmpty()){
+                if (dexFilePathEditText.getText().toString().isEmpty()){
                     return;
                 }
                 String initialPath = dexFilePathEditText.getText().toString();
@@ -271,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements FilePermissionMan
                 textView.setText(filePaths.get(0)); // Set the selected file path to the TextView
 
                 // Save the last selected directory path in SharedPreferences
-                sharedPreferences.edit().putString(lastPathKey, new File(filePaths.get(0)).getParentFile().getAbsolutePath()).commit();
+                sharedPreferences.edit().putString(lastPathKey, new File(filePaths.get(0)).getParentFile().getAbsolutePath()).apply();
             }
         });
 

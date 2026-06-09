@@ -37,6 +37,7 @@
 package modder.hub.dexeditor.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 
 import modder.hub.dexeditor.views.AlertCircularProgress;
@@ -387,9 +388,36 @@ public class SmaliMethodFieldListFragment extends DialogFragment {
     }
 
     // Generate and display a flowchart for the given method
-    public void methodFlowChart(String methodName) {
-        showProgressDialog(true); // Show progress dialog
-        new MethodFlowChartTask(methodName).start(); // Start the flowchart generation task
+    public void methodFlowChart(final String methodName) {
+        final Activity activity = getActivity();
+        if (activity == null || activity.isFinishing()) return;
+
+        if (activity instanceof DexEditorActivity) {
+            DexEditorActivity dexActivity = (DexEditorActivity) activity;
+            String cleanedClassName = SmaliHelper.smali2OnlySlash(fullClassName);
+            String title = SmaliHelper.extractSimpleName(fullClassName) + "." + _getTextBefore(methodName, "(");
+            String subtitle = "(" + _getTextAfter(methodName, "(");
+
+            // Check if tab already exists to avoid redundant generation
+            for (int i = 0; i < DexEditorActivity.tabs.size(); i++) {
+                DexEditorActivity.EditorTab tab = DexEditorActivity.tabs.get(i);
+                if (tab.className.equals(cleanedClassName) && tab.title.equals(title) &&
+                    tab.subtitle != null && tab.subtitle.equals(subtitle) && tab.type == 2) {
+                    dexActivity.showEditor(i);
+                    dismiss();
+                    return;
+                }
+            }
+        }
+        
+        dismiss(); // Close dialog fragment
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (activity.isFinishing() || activity.isDestroyed()) return;
+                new MethodFlowChartTask(activity, methodName).start(); // Start the flowchart generation task
+            }
+        }, 200L);
     }
 
     // Helper method to get the text before a specific delimiter
@@ -405,9 +433,12 @@ public class SmaliMethodFieldListFragment extends DialogFragment {
     }
 
     // Convert Smali code to Java code for the given method
-    public void smali2Java(String methodName) {
-        if (getActivity() instanceof DexEditorActivity) {
-            DexEditorActivity activity = (DexEditorActivity) getActivity();
+    public void smali2Java(final String methodName) {
+        final Activity activity = getActivity();
+        if (activity == null || activity.isFinishing()) return;
+
+        if (activity instanceof DexEditorActivity) {
+            DexEditorActivity dexActivity = (DexEditorActivity) activity;
             String cleanedClassName = SmaliHelper.smali2OnlySlash(fullClassName);
             String title = SmaliHelper.extractSimpleName(fullClassName) + "." + _getTextBefore(methodName, "(");
 
@@ -415,49 +446,25 @@ public class SmaliMethodFieldListFragment extends DialogFragment {
             for (int i = 0; i < DexEditorActivity.tabs.size(); i++) {
                 DexEditorActivity.EditorTab tab = DexEditorActivity.tabs.get(i);
                 if (tab.className.equals(cleanedClassName) && tab.title.equals(title) && tab.type == 1) {
-                    activity.showEditor(i);
+                    dexActivity.showEditor(i);
                     dismiss();
                     return;
                 }
             }
         }
-        new Handler(Looper.getMainLooper()).postDelayed(new SmaliToJavaTask(methodName), 200L);
+        
+        dismiss();
+        new Handler(Looper.getMainLooper()).postDelayed(new SmaliToJavaTask(activity, methodName), 200L);
     }
 
-    // Show or hide the primary progress dialog
-    public void showProgressDialog(boolean show) {
-        if (show) {
-            if (progressDialog == null) {
-                progressDialog = new AlertCircularProgress(getActivity());
-            }
-            progressDialog.setTitle(null);
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
-        } else if (progressDialog != null) {
-            progressDialog.dismiss();
+    public void showExceptionDlg(final Activity activity, final Exception e) {
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+            return;
         }
-    }
-
-    // Show or hide the secondary progress dialog
-    public void showSecondaryProgressDialog(boolean show) {
-        if (show) {
-            if (secondaryProgressDialog == null) {
-                secondaryProgressDialog = new AlertCircularProgress(getActivity());
-            }
-            secondaryProgressDialog.setTitle(null);
-            secondaryProgressDialog.setMessage("Processing...");
-            secondaryProgressDialog.show();
-        } else if (secondaryProgressDialog != null) {
-            secondaryProgressDialog.dismiss();
-        }
-    }
-
-    // Show an exception dialog with the given exception
-    public void showExceptionDlg(final Exception e) {
-        requireActivity().runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Notify_MT.Notify(getActivity(), getResources().getString(R.string.error), e.getMessage(), getResources().getString(R.string.close));
+                Notify_MT.Notify(activity, activity.getString(R.string.error), e.getMessage(), activity.getString(R.string.close));
             }
         });
     }
@@ -917,54 +924,84 @@ public class SmaliMethodFieldListFragment extends DialogFragment {
 
     // Task to generate a method flowchart using viz-js locally
     private class MethodFlowChartTask extends Thread {
+        private final Activity activity;
         private final String methodName;
+        private AlertCircularProgress pd;
 
-        public MethodFlowChartTask(String methodName) {
+        public MethodFlowChartTask(Activity activity, String methodName) {
+            this.activity = activity;
             this.methodName = methodName;
         }
 
         @Override
         public void run() {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pd = new AlertCircularProgress(activity);
+                    pd.setMessage("Generating flowchart...");
+                    pd.show();
+                }
+            });
+
             try {
                 ArrayList<String> methodList = new ArrayList<>();
                 methodList.add(methodName);
                 DrawFlowDiagram drawFlowDiagram = new DrawFlowDiagram(smaliFilePath, methodList.toArray(new String[0]));
                 drawFlowDiagram.run();
 
-                requireActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (pd != null) pd.dismiss();
+                        
                         for (Method method : drawFlowDiagram.getClassInSmali().getMethodDict().values()) {
                             final String dotDiagram = drawFlowDiagram.drawMethodFlowDiagram(method);
-                            showProgressDialog(false); // Hide progress dialog
 
-                            Intent intent = new Intent(requireContext().getApplicationContext(), modder.hub.dexeditor.activity.GraphViewActivity.class);
-                            intent.putExtra("Title", className + "." + _getTextBefore(methodName, "("));
-                            intent.putExtra("Subtitle", "(" + _getTextAfter(methodName, "("));
-                            intent.putExtra("dot", dotDiagram);
-                            startActivity(intent);
+                            if (activity instanceof DexEditorActivity) {
+                                String cleanedClassName = SmaliHelper.smali2OnlySlash(fullClassName);
+                                String title = SmaliHelper.extractSimpleName(fullClassName) + "." + _getTextBefore(methodName, "(");
+                                String subtitle = "(" + _getTextAfter(methodName, "(");
+                                ((DexEditorActivity) activity).addTab(cleanedClassName, title, subtitle, dotDiagram, 2);
+                            }
                         }
                     }
                 });
-            } catch (Exception e) {
-                showProgressDialog(false);
-                showExceptionDlg(e);
+            } catch (final Exception e) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pd != null) pd.dismiss();
+                        showExceptionDlg(activity, e);
+                    }
+                });
             }
         }
     }
 
     // Task to convert Smali code to Java code
     private class SmaliToJavaTask implements Runnable {
+        private final Activity activity;
         private final String methodName;
+        private AlertCircularProgress pd;
 
-        public SmaliToJavaTask(String methodName) {
+        public SmaliToJavaTask(Activity activity, String methodName) {
+            this.activity = activity;
             this.methodName = methodName;
         }
 
         @SuppressLint("StaticFieldLeak")
         @Override
         public void run() {
-            showProgressDialog(true); // Show progress dialog
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    pd = new AlertCircularProgress(activity);
+                    pd.setMessage("Decompiling...");
+                    pd.show();
+                }
+            });
+
             new AsyncTask<Void, Void, String>() {
                 @Override
                 protected String doInBackground(Void... voids) {
@@ -972,12 +1009,12 @@ public class SmaliMethodFieldListFragment extends DialogFragment {
                         // Parse the Smali method and convert it to Java
                         SmaliMethodBody smaliMethodBody = new SmaliMethodBody(smaliFilePath, new String[]{methodName}, true);
                         return Smali2Java.translate(smaliMethodBody.parseClassInSmali(), dexVersion);
-                    } catch (Exception e) {
-                        showProgressDialog(false); // Hide progress dialog on error
-                        getActivity().runOnUiThread(new Runnable() {
+                    } catch (final Exception e) {
+                        activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                showExceptionDlg(e); // Show exception dialog
+                                if (pd != null) pd.dismiss();
+                                showExceptionDlg(activity, e);
                             }
                         });
                         return null;
@@ -986,24 +1023,25 @@ public class SmaliMethodFieldListFragment extends DialogFragment {
 
                 @Override
                 protected void onPostExecute(String javaCode) {
-                    showProgressDialog(false); // Hide progress dialog
-                    if (javaCode != null) {
-                        try {
-                            if (getActivity() instanceof DexEditorActivity) {
-                                DexEditorActivity activity = (DexEditorActivity) getActivity();
-                                String cleanedClassName = SmaliHelper.smali2OnlySlash(fullClassName);
-                                String title = SmaliHelper.extractSimpleName(fullClassName) + "." + _getTextBefore(methodName, "(");
-                                activity.addTab(cleanedClassName, title, javaCode, 1);
-                                dismiss();
-                            }
-                        } catch (Exception e) {
-                            requireActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    showExceptionDlg(e); // Show exception dialog
-                                }
-                            });
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (pd != null) pd.dismiss();
                         }
+                    });
+                    
+                    if (javaCode != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (activity instanceof DexEditorActivity) {
+                                    DexEditorActivity dexActivity = (DexEditorActivity) activity;
+                                    String cleanedClassName = SmaliHelper.smali2OnlySlash(fullClassName);
+                                    String title = SmaliHelper.extractSimpleName(fullClassName) + "." + _getTextBefore(methodName, "(");
+                                    dexActivity.addTab(cleanedClassName, title, javaCode, 1);
+                                }
+                            }
+                        });
                     }
                 }
             }.execute();
