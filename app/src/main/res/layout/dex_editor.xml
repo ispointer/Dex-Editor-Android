@@ -22,6 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
+                app:contentInsetStartWithNavigation="0dp"
                 app:subtitleTextAppearance="@style/ToolbarSmallSubtitle"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </com.google.android.material.appbar.AppBarLayout>
@@ -29,6 +30,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
@@ -44,7 +46,7 @@
                     android:background="#FFFFFF"
                     app:tabGravity="fill"
                     app:tabIndicatorColor="#03A9F4"
-                    app:tabIndicatorHeight="3dp"
+                    app:tabIndicatorHeight="2dp"
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="#000000"
                     app:tabTextAppearance="@style/TabTextAppearance"
@@ -62,6 +64,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FFFFFF"
+                android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:visibility="gone" />
 
         </FrameLayout>
@@ -89,11 +98,11 @@
             android:id="@+id/drawer_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#202020"
+            android:background="?attr/colorPrimary"
             app:title="Opened classes"
             app:titleTextColor="#FFFFFF" />
 
-        <modder.hub.dexeditor.views.FastScrollerRecyclerView
+        <com.fastrecyclerview.FastScrollerRecyclerView
             android:id="@+id/tabs_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -36,6 +36,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -47,7 +48,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
 import com.github.angads25.filepicker.model.DialogProperties;
 import com.github.angads25.filepicker.view.FilePickerDialog;
-import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements FilePermissionMan
     // UI Components
     private Toolbar toolbar;
     private EditText dexFilePathEditText;
-    private MaterialButton pickDexFileButton;
-    private MaterialButton openDexFileButton;
+    private Button pickDexFileButton;
+    private Button openDexFileButton;
     private TextView githubLinkTextView;
 
     private SharedPreferences sharedPreferences;

@@ -5,7 +5,37 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_checkbox_partial.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_chevron_right.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_close_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_copy_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_delete.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_duplicate_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_empty_mt.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
@@ -15,7 +45,52 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_eye_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_flow_diagram.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_hammer.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_hash_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_home.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_instruction_query_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_java_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_jump_line_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_left_arrow_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_link_mt.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
@@ -25,12 +100,27 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_lowercase_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_more_mt.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_paste_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_replace_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_right_arrow_mt.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
@@ -45,6 +135,66 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_selectall_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_setting_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_share_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_swap.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_translate_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_undo_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_uppercase_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_wrap_text_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/item_background.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_ripple.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/smali_icon_mt.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/ai_overview_activity.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/circular_progress.xml">
         <config>
           <theme>@style/AppTheme</theme>
@@ -55,7 +205,27 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/custom_completion_item_layout.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dex_editor.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_compilation_options.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_instructions.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_jump_to_line.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
@@ -65,7 +235,77 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/editor_fragment.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/floating_menu_items.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/floating_menus_customize.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_graph_view.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/header_item.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_goto_text.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_instruction.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/list_method_layout.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/method_list.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/multiple_fabs.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/progress_dlg.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/search_header.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
@@ -81,6 +321,16 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/tab_item.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/text_action_panel.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml">
         <config>
           <theme>@style/AppTheme</theme>
         </config>
@@ -107,67 +357,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25b376b8-eb95-46dc-8e45-c59e91d23774" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/languages.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/HeaderAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/StringAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/TreeAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/EditorFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SearchFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SmaliMethodFieldListFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/model/TreeNode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/EditorPositionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_checkbox_partial.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_chevron_right.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_hammer.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_compilation_options.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_search_dex.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/editor_fragment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/string_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/tab_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/dex_editor_main_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/androidx-collections.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/animato.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/guava-27.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/jadx-dex-input-1.4.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/javax.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/kotlin-runtime.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/android/tools/smali/util/jcommander/HelpFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/android/tools/smali/util/jcommander/HelpFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/DebugActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/DebugActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/GraphDot/DrawFlowDiagram.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/GraphDot/DrawFlowDiagram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/clickeffect/T_a.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/fastrecyclerview/FastScrollerRecyclerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/planningMode.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/planningMode.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/SketchApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/SketchApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/AIOverViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/AIOverViewActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/DexEditorActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/DexEditorActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/EditFloatingMenusActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/EditFloatingMenusActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/ImageViewerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/ImageViewerActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/JavaViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/JavaViewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/SettingsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/TextEditorActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/CustomCompletionItemAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/CustomCompletionItemAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SettingsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SettingsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SmaliMethodListFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/ViewAnimationHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/ViewAnimationHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/smali/Smali2Java.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/smali/Smali2Java.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/CustomAutoComplete.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/CustomAutoComplete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/TreeAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/adapter/TreeAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/EditorFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/EditorFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SearchFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SearchFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SmaliMethodFieldListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/fragment/SmaliMethodFieldListFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/DexFileSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/DexFileSelector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/FilePermissionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/FilePermissionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/ListDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/ListDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/Notify_MT.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/Notify_MT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SketchwareUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SketchwareUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SmaliCursorUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SmaliCursorUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SmaliInstructionHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SmaliInstructionHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SmaliLabelDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/utils/SmaliLabelDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/AlertCircularProgress.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/AlertCircularProgress.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/AlertProgress.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/AlertProgress.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/FastScrollerRecyclerView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/SmaliInstructionsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/views/SmaliInstructionsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_ripple.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_corner_ripple.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/ai_overview_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/ai_overview_activity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/circular_progress.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/circular_progress.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/class_holder.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/class_holder.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dex_editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dex_editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_instructions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_instructions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_search_dex.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_search_dex.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/editor_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/editor_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/floating_menu_items.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/floating_menu_items.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/floating_menus_customize.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/floating_menus_customize.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/header_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/header_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_method_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_method_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/progress_dlg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/progress_dlg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/editor_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/editor_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,40 +406,62 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=10MFBFG2XG000CD]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=00161352J001858]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Dex-Editor-Android" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "assignee": "developer-krushna"
+      &quot;assignee&quot;: &quot;developer-krushna&quot;
     }
   ],
-  "lastFilter": {
-    "assignee": "developer-krushna"
+  &quot;lastFilter&quot;: {
+    &quot;assignee&quot;: &quot;developer-krushna&quot;
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "https://github.com/developer-krushna/Dex-Editor-Android",
-    "accountId": "185f0346-e623-434d-89db-3a4c9ea19eb6"
+    "url": "https://github.com/developer-krushna/Dex-Editor-Android.git",
+    "accountId": "8f91ba38-1dde-40b6-bf6c-1a9015c86a9e"
   }
 }]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/app/src/main/java/modder/hub/dexeditor/activity/TextEditorActivity.java" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -224,30 +475,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Configure Daemon JVM Criteria.executor&quot;: &quot;Run&quot;,
-    &quot;GradleDaemonJvmCriteriaMigrationNotification.isNotificationDisabled&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/kcmah/StudioProjects/Dex-Editor-Android/app/src/main/res/drawable&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.google.gct.login2.settings.GoogleLoginApplicationSettingsConfigurableProvider&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Android App.app.executor": "Run",
+    "Gradle.Configure Daemon JVM Criteria.executor": "Run",
+    "GradleDaemonJvmCriteriaMigrationNotification.isNotificationDisabled": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/kcmah/StudioProjects/Dex-Editor-Android/app/src/main/res/drawable",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings"
   }
-}</component>
+}]]></component>
   <component name="PsdUISettings">
     <option name="MODULE_TAB" value="Signing Configs" />
     <option name="LAST_EDITED_SIGNING_CONFIG" value="debug" />
@@ -430,6 +682,7 @@
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Delete app/release directory" />
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
@@ -449,12 +702,12 @@
       <map>
         <entry key="modder.hub.dexeditor">
           <value>
-            <CheckInfo lastCheckTimestamp="1779554603976" />
+            <CheckInfo lastCheckTimestamp="1781398919492" />
           </value>
         </entry>
         <entry key="modder.hub.dexeditor.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1779554603976" />
+            <CheckInfo lastCheckTimestamp="1781398919512" />
           </value>
         </entry>
       </map>

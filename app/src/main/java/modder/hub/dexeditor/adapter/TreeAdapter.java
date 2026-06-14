@@ -49,9 +49,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,6 +62,7 @@ import modder.hub.dexeditor.activity.DexEditorActivity;
 import modder.hub.dexeditor.model.TreeNode;
 import modder.hub.dexeditor.utils.TreeHelper;
 import modder.hub.dexeditor.utils.UIHelper;
+import com.clickeffect.T_a;
 
 // Author ; @developer-krushna
 // Code fixed and some commments and improvements are done by AI
@@ -226,18 +226,18 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 int pos = holder.getBindingAdapterPosition();
-                if (pos != RecyclerView.NO_POSITION) toggleNode(visibleNodes.get(pos), pos);
+                if (pos != RecyclerView.NO_POSITION) toggleNode(visibleNodes.get(pos), pos, holder.arrow);
             }
         });
 
-        holder.itemContent.setOnClickListener(new View.OnClickListener() {
+        T_a.apply(holder.itemContent, new T_a.ClickAction() {
             @Override
-            public void onClick(View v) {
+            public void onClick(@NonNull View v) {
                 int pos = holder.getBindingAdapterPosition();
                 if (pos == RecyclerView.NO_POSITION) return;
                 TreeNode node = visibleNodes.get(pos);
                 if (node.isDirectory() && !isHistory) {
-                    toggleNode(node, pos);
+                    toggleNode(node, pos, holder.arrow);
                 } else if (node.isSnippet()) {
                     if (isSearchList) {
                         boolean isDeleted = DexEditorActivity.classTree != null && !DexEditorActivity.classTree.classMap.containsKey(node.getFullName());
@@ -259,7 +259,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
 
                         if (isSearchList) {
                             // Toggle expansion for classes in search results instead of opening editor
-                            toggleNode(node, pos);
+                            toggleNode(node, pos, holder.arrow);
                         } else if (listener != null) {
                             listener.onNodeClick(node);
                         }
@@ -303,10 +303,9 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                     if (holder.arrow.getVisibility() != View.VISIBLE) {
                         holder.arrow.setVisibility(View.VISIBLE);
                     }
-                    float targetRotation = node.isExpanded() ? 45 : 0;
-                    if (holder.arrow.getRotation() != targetRotation) {
-                        holder.arrow.setRotation(targetRotation);
-                    }
+                    float targetRotation = node.isExpanded() ? 40 : 0;
+                    holder.arrow.animate().cancel();
+                    holder.arrow.setRotation(targetRotation);
                 } else {
                     if (holder.arrow.getVisibility() != View.GONE) {
                         holder.arrow.setVisibility(View.GONE);
@@ -429,9 +428,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 holder.lastBackgroundRes = -1;
             } else {
                 if (holder.lastBackgroundRes != 0) {
-                    android.util.TypedValue outValue = new android.util.TypedValue();
-                    context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-                    holder.itemContent.setBackgroundResource(outValue.resourceId);
+                    holder.itemContent.setBackground(null);
                     holder.lastBackgroundRes = 0;
                 }
             }
@@ -441,8 +438,8 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         int arrowWidth = (int) (14 * density);
         int itemPaddingLeft = (int) (4 * density);
         int checkboxWidth = (isSelectionMode ? (int) (28 * density) : 0);
-        int iconWidth = (int) (28 * density); // 20dp + 4dp margin each side
-        int textPadding = (int) (6 * density);
+        int iconWidth = (int) (26 * density); // 20dp + 2dp left + 4dp right margin
+        int textPadding = (int) (4 * density);
 
         // Slightly reduced indent to balance alignment
         int indentPerLevel = (int) (24 * density);
@@ -531,6 +528,8 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
                 holder.checkBox.setButtonDrawable(holder.defaultCheckBoxDrawable);
                 holder.checkBox.setChecked(node.isChecked());
             }
+            // Ensure no extra padding is added by setButtonDrawable
+            holder.checkBox.setPadding(0, 0, 0, 0);
         } else {
             if (holder.checkBox.getVisibility() != View.GONE) holder.checkBox.setVisibility(View.GONE);
         }
@@ -644,7 +643,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
     }
 
     private void showDeletedPrompt(TreeNode node, int position) {
-        new MaterialAlertDialogBuilder(context)
+        new AlertDialog.Builder(context)
                 .setTitle("Class deleted")
                 .setMessage("This class has been deleted. Do you want to remove it from " + (isHistory ? "history" : "search results") + "?")
                 .setPositiveButton("Remove", new android.content.DialogInterface.OnClickListener() {
@@ -900,7 +899,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
 
     // Show delete dialog
     private void showDeleteDialog(TreeNode node, int position) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Delete");
         builder.setMessage("Are you sure you want to delete " + (node.isDirectory() ? "folder" : "class") + ": " + node.getName() + "?");
         builder.setPositiveButton("Delete", new android.content.DialogInterface.OnClickListener() {
@@ -982,13 +981,17 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    private void toggleNode(TreeNode node, int position) {
+    private void toggleNode(TreeNode node, int position, ImageView arrow) {
         if (node.isExpanded()) {
             collapseNode(node, position);
         } else {
             expandNode(node, position);
         }
-        notifyItemChanged(position);
+
+        if (arrow != null) {
+            arrow.animate().cancel();
+            arrow.animate().rotation(node.isExpanded() ? 40f : 0f).setDuration(180).start();
+        }
     }
 
     /**
@@ -1022,13 +1025,13 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
         node.setExpanded(false);
         int nextPos = position + 1;
         int count = 0;
-        while (nextPos < visibleNodes.size() && isDescendant(node, visibleNodes.get(nextPos))) {
-            visibleNodes.remove(nextPos);
+        while (nextPos + count < visibleNodes.size() && isDescendant(node, visibleNodes.get(nextPos + count))) {
             count++;
         }
 
         if (count > 0) {
-            notifyItemRangeRemoved(position + 1, count);
+            visibleNodes.subList(nextPos, nextPos + count).clear();
+            notifyItemRangeRemoved(nextPos, count);
         }
     }
 
@@ -1104,6 +1107,12 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> {
             divider = itemView.findViewById(R.id.divider);
             indentSpacer = itemView.findViewById(R.id.indent_spacer);
             defaultCheckBoxDrawable = androidx.core.widget.CompoundButtonCompat.getButtonDrawable(checkBox);
+            if (defaultCheckBoxDrawable == null) {
+                android.util.TypedValue value = new android.util.TypedValue();
+                if (itemView.getContext().getTheme().resolveAttribute(android.R.attr.listChoiceIndicatorMultiple, value, true)) {
+                    defaultCheckBoxDrawable = androidx.core.content.ContextCompat.getDrawable(itemView.getContext(), value.resourceId);
+                }
+            }
         }
     }
 }

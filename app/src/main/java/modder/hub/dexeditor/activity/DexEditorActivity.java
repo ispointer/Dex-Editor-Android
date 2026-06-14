@@ -56,6 +56,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -80,7 +81,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.tools.smali.smali.SmaliOptions;
 import com.android.tools.smali.smali2.Smali;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -110,9 +110,9 @@ import modder.hub.dexeditor.utils.EditorPositionManager;
 import modder.hub.dexeditor.utils.Notify_MT;
 import modder.hub.dexeditor.utils.SketchwareUtil;
 import modder.hub.dexeditor.utils.UIHelper;
+import com.fastrecyclerview.FastScrollerRecyclerView;
 import modder.hub.dexeditor.views.AlertCircularProgress;
 import modder.hub.dexeditor.views.AlertProgress;
-import modder.hub.dexeditor.views.FastScrollerRecyclerView;
 import modder.hub.dexeditor.views.SmaliInstructionsDialog;
 import modder.hub.dexeditor.views.TextActionWindow;
 
@@ -163,7 +163,8 @@ public class DexEditorActivity extends AppCompatActivity {
     private ViewPager2 explorerViewPager;
     private FloatingActionButton fabDelete;
     private LinearLayout fabBackground;
-    private AlertCircularProgress coreProgressDialog;
+    private ProgressBar progressBar;
+    private boolean isLoading = false;
     private AlertProgress progressDialog;
 
     // ==========================================
@@ -323,6 +324,8 @@ public class DexEditorActivity extends AppCompatActivity {
 
         fabDelete = findViewById(R.id.fab_delete);
         fabDelete.setOnClickListener(new DeleteButtonClickListener());
+
+        progressBar = findViewById(R.id.progress_bar);
 
         initializeExplorerTabs();
         initializeFab();
@@ -506,6 +509,16 @@ public class DexEditorActivity extends AppCompatActivity {
     private void updateToolbar() {
         if (getSupportActionBar() == null) return;
 
+        if (isLoading) {
+            getSupportActionBar().setTitle("");
+            getSupportActionBar().setSubtitle(null);
+            drawerToggle.setDrawerIndicatorEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            drawerToggle.syncState();
+            invalidateOptionsMenu();
+            return;
+        }
+
         if (viewPager.getVisibility() == View.VISIBLE && currentTabIndex != -1 && currentTabIndex < tabs.size()) {
             getSupportActionBar().setTitle(tabs.get(currentTabIndex).title);
             getSupportActionBar().setSubtitle(null);
@@ -549,6 +562,12 @@ public class DexEditorActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        if (isLoading) {
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setVisible(false);
+            }
+            return true;
+        }
         if (viewPager.getVisibility() == View.VISIBLE && currentTabIndex != -1 && currentTabIndex < tabs.size()) {
             EditorTab tab = tabs.get(currentTabIndex);
             boolean isSmali = tab.type == 0;
@@ -753,7 +772,7 @@ public class DexEditorActivity extends AppCompatActivity {
         }
 
         if (tab.isModified) {
-            new MaterialAlertDialogBuilder(this)
+            new AlertDialog.Builder(this)
                     .setTitle("Warning")
                     .setMessage("Class '" + tab.title + "' has been modified. Save the code ?")
                     .setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -848,7 +867,7 @@ public class DexEditorActivity extends AppCompatActivity {
         String hint = "1⋯" + smaliEditor.getLineCount();
         editText.setHint(hint);
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle("Jump to line")
                 .setView(view)
                 .setPositiveButton("OK", null)
@@ -1296,7 +1315,7 @@ public class DexEditorActivity extends AppCompatActivity {
             swRemoveDebugLocal.setEnabled(false);
         }
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -1399,7 +1418,7 @@ public class DexEditorActivity extends AppCompatActivity {
             if (tab.isModified) modifiedTabs.add(tab);
         }
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Unsaved changes");
 
         if (!modifiedTabs.isEmpty()) {
@@ -1597,17 +1616,28 @@ public class DexEditorActivity extends AppCompatActivity {
     }
 
     // show the progress dialog
-    private void showProcessingProgress(boolean show) {
-        if (show) {
-            if (coreProgressDialog == null) {
-                coreProgressDialog = new AlertCircularProgress(this);
+    private void showProcessingProgress(final boolean show) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                isLoading = show;
+                if (progressBar == null) {
+                    progressBar = findViewById(R.id.progress_bar);
+                }
+                if (show) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    classListContainer.setVisibility(View.GONE);
+                    viewPager.setVisibility(View.GONE);
+                    updateToolbar();
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    if (viewPager.getVisibility() != View.VISIBLE) {
+                        classListContainer.setVisibility(View.VISIBLE);
+                    }
+                    updateToolbar();
+                }
             }
-            coreProgressDialog.setTitle(null);
-            coreProgressDialog.setMessage("Loading...");
-            coreProgressDialog.show();
-        } else if (coreProgressDialog != null) {
-            coreProgressDialog.dismiss();
-        }
+        });
     }
 
     private void showMultipleFabs(boolean show) {
@@ -2167,7 +2197,7 @@ public class DexEditorActivity extends AppCompatActivity {
         }
 
         private void handleUiThreadError(Exception e) {
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DexEditorActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(DexEditorActivity.this);
             builder.setTitle(getString(R.string.error));
             builder.setMessage("UI update failed: " + e.getMessage());
             builder.setPositiveButton("OK", null);
@@ -2175,7 +2205,7 @@ public class DexEditorActivity extends AppCompatActivity {
         }
 
         private void showErrorDialog(final Exception e) {
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(DexEditorActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(DexEditorActivity.this);
             builder.setTitle(getString(R.string.error));
             builder.setMessage("Failed to process DEX files:\n\n" + e.getMessage());
             builder.setPositiveButton("Go Back", new DialogInterface.OnClickListener() {

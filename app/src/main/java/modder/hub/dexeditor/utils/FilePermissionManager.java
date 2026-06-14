@@ -33,7 +33,6 @@ package modder.hub.dexeditor.utils;
 
 import android.Manifest;
 import androidx.appcompat.app.AlertDialog;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -95,7 +94,7 @@ public class FilePermissionManager {
     private static void showLegacyPermissionDialog(final MainActivity activity, 
                                                  final ActivityResultLauncher<String[]> permissionLauncher, 
                                                  final PermissionCallback callback) {
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setTitle("Storage Permission Required")
                 .setMessage("This app needs access to your storage to function properly.")
                 .setCancelable(false)
@@ -129,7 +128,7 @@ public class FilePermissionManager {
     private static void showManageAllFilesDialog(final MainActivity activity, 
                                                final ActivityResultLauncher<Intent> storageLauncher, 
                                                final PermissionCallback callback) {
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setTitle(R.string.full_storage_access_required)
                 .setMessage(R.string.manage_all_files_msg)
                 .setCancelable(false)

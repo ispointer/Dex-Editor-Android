@@ -7,35 +7,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Text to find"
-            android:textSize="14sp" />
+            android:textColor="#757575"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
 
-        <RelativeLayout
+        <AutoCompleteTextView
+            android:id="@+id/et_find"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <AutoCompleteTextView
-                android:id="@+id/et_find"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text" />
-
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:inputType="text" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/pathTitle"
                 android:text="Path"
+                android:textColor="#757575"
                 android:textSize="14sp" />
 
             <LinearLayout
@@ -59,7 +60,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Exclude list"
-                    android:textColor="#2196F3"
                     android:textSize="14sp" />
             </LinearLayout>
         </RelativeLayout>
@@ -74,7 +74,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -82,26 +82,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Search type"
+                android:textColor="#757575"
                 android:textSize="14sp" />
 
-            <Spinner
-                android:id="@+id/spinner_search_type"
+            <TextView
+                android:id="@+id/tv_search_type_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp" />
+                android:text="Smali"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp" />
+
+            <Spinner
+                android:id="@+id/spinner_search_type"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:background="@null" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginTop="4dp" />
 
         <CheckBox
             android:id="@+id/cb_search_subfolders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:checked="true"
             android:minHeight="0dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Search subfolders" />
 
         <CheckBox
@@ -109,8 +124,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Match case" />
 
         <CheckBox
@@ -118,8 +133,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Regex" />
 
         <CheckBox
@@ -127,8 +142,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Exactly match" />
 
         <CheckBox
@@ -136,8 +151,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:text="Hex"
             android:visibility="gone" />
 

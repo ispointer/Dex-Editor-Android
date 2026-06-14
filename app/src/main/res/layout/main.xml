@@ -15,6 +15,7 @@
             android:background="?attr/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </com.google.android.material.appbar.AppBarLayout>
     <LinearLayout
@@ -32,7 +33,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.Design.TextInputLayout">
             <EditText
                 android:textSize="16sp"
                 android:textColor="#ff000000"
@@ -46,8 +47,8 @@
                 android:hint="Enter dex path"
                 android:imeOptions="actionDone" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.button.MaterialButton
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        <Button
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="#ffffffff"
@@ -58,11 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pick .dex file"
-            app:backgroundTint="@color/colorPrimary"
-            app:cornerRadius="8dp"
-            style="@style/Widget.MaterialComponents.Button" />
-        <com.google.android.material.button.MaterialButton
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:backgroundTint="@color/colorPrimary" />
+        <Button
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="#ffffffff"
@@ -73,9 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Open Dex Editor"
-            app:backgroundTint="@color/colorPrimary"
-            app:cornerRadius="8dp"
-            style="@style/Widget.MaterialComponents.Button" />
+            android:backgroundTint="@color/colorPrimary" />
         <TextView
             android:textSize="18sp"
             android:textStyle="bold"

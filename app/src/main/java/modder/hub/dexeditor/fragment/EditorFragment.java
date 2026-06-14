@@ -60,7 +60,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.eclipse.tm4e.core.registry.IGrammarSource;
 import org.eclipse.tm4e.core.registry.IThemeSource;
@@ -766,7 +765,7 @@ public class EditorFragment extends Fragment implements SmaliMethodFieldListFrag
         intent.addCategory("android.intent.category.DEFAULT");
         intent.setType("text/plain");
         final List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(intent, 0);
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Available system translations");
         String[] appNames = new String[resolveInfoList.size()];
         final String[] selectedPackage = {""};

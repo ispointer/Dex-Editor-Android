@@ -38,14 +38,10 @@
 package modder.hub.dexeditor.utils;
 
 import androidx.appcompat.app.AlertDialog;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.GradientDrawable;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import java.util.Objects;
 
 /*
 Author @developer-krushna
@@ -58,7 +54,7 @@ public class Notify_MT {
 	
 	public static void Notify(Context context, String title_mt, String message_mt, String cancel_mt) {
 		try {
-			final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+			final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setTitle(title_mt);
 			builder.setMessage(message_mt);
 			builder.setPositiveButton(cancel_mt, new DialogInterface.OnClickListener() {
@@ -79,7 +75,7 @@ public class Notify_MT {
 	}
 	
 	
-	public static void Dlg_Style(MaterialAlertDialogBuilder dialog){
+	public static void Dlg_Style(AlertDialog.Builder dialog){
 		try{
 			dialog.show();
 		} catch (WindowManager.BadTokenException ignored){

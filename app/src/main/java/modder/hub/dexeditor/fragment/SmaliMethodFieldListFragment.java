@@ -97,7 +97,7 @@ import modder.hub.dexeditor.utils.SketchwareUtil;
 import modder.hub.dexeditor.smali.SmaliHelper;
 import modder.hub.dexeditor.utils.UIHelper;
 import modder.hub.dexeditor.utils.ViewAnimationHelper;
-import modder.hub.dexeditor.views.FastScrollerRecyclerView;
+import com.fastrecyclerview.FastScrollerRecyclerView;
 
 /*
 Author @developer-krushna

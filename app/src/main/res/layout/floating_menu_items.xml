@@ -5,15 +5,11 @@
 	android:layout_width="match_parent"
 	android:layout_height="45dp"
 	android:layout_margin="8dp"
-	card_view:cardCornerRadius="10dp"
-	card_view:cardElevation="2dp">
+	card_view:cardCornerRadius="1.2dp">
 	<RelativeLayout
 		android:id="@+id/relativeLayout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingLeft="8dp"
-		android:paddingRight="8dp"
-		android:paddingBottom="8dp"
 		android:background="@drawable/rounded_corner_ripple"
 		android:focusable="true">
 		<ImageView

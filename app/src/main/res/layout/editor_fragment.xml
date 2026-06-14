@@ -108,7 +108,7 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@android:color/white"
+        android:background="#FAFAFA"
         android:overScrollMode="never"
         android:scrollbars="none">
 

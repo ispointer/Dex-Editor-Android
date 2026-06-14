@@ -56,7 +56,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -158,7 +157,7 @@ public class AIOverViewActivity extends AppCompatActivity {
         input.setLayoutParams(params);
         container.addView(input);
 
-        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Edit Prompt")
                 .setView(container)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

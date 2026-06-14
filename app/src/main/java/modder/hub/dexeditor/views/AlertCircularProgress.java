@@ -71,7 +71,7 @@ public class AlertCircularProgress {
         View view = View.inflate(context, R.layout.circular_progress, null);
         progressMessage = view.findViewById(R.id.progress_message);
         progressTitle = view.findViewById(R.id.progress_title);
-        alertDialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+        alertDialog = new androidx.appcompat.app.AlertDialog.Builder(activity)
                 .setCancelable(false)
                 .setView(view)
                 .create();

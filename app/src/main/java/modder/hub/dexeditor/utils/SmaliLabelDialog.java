@@ -50,7 +50,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import modder.hub.dexeditor.R;
-import modder.hub.dexeditor.views.FastScrollerRecyclerView;
+import com.fastrecyclerview.FastScrollerRecyclerView;
 
 import android.text.*;
 import android.text.style.*;

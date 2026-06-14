@@ -65,7 +65,6 @@ import com.android.tools.smali.dexlib2.AccessFlags;
 import com.android.tools.smali.dexlib2.iface.ClassDef;
 import com.android.tools.smali.smali.SmaliOptions;
 import com.android.tools.smali.smali2.Smali;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
@@ -102,7 +101,7 @@ import modder.hub.dexeditor.utils.SketchwareUtil;
 import modder.hub.dexeditor.utils.TreeHelper;
 import modder.hub.dexeditor.utils.UIHelper;
 import modder.hub.dexeditor.views.AlertProgress;
-import modder.hub.dexeditor.views.FastScrollerRecyclerView;
+import com.fastrecyclerview.FastScrollerRecyclerView;
 
 // Author : @developer-krushna
 // Got some LOGICS from AI but thought , idea other resources copied from mt manager interface
@@ -271,7 +270,7 @@ public class SearchFragment extends Fragment {
         }
 
         if (!modifiedTabs.isEmpty()) {
-            new MaterialAlertDialogBuilder(requireContext())
+            new AlertDialog.Builder(requireContext())
                     .setTitle("Info")
                     .setMessage("You need to save all the codes before proceeding. Do you want to continue ?")
                     .setPositiveButton("Save and Continue", new android.content.DialogInterface.OnClickListener() {
@@ -420,7 +419,7 @@ public class SearchFragment extends Fragment {
         layout.addView(etExcludes);
         layout.addView(tvExplanation);
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Exclude list");
         builder.setView(layout);
         builder.setPositiveButton("OK", new android.content.DialogInterface.OnClickListener() {
@@ -526,7 +525,7 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setTitle("Search")
                 .setView(dialogView)
                 .setPositiveButton("OK", null)
@@ -603,7 +602,7 @@ public class SearchFragment extends Fragment {
         });
 
         // Setting up the replace dialog with options like regex and match case
-        new MaterialAlertDialogBuilder(requireContext())
+        new AlertDialog.Builder(requireContext())
                 .setTitle("Replace")
                 .setView(dialogView)
                 .setPositiveButton("OK", new android.content.DialogInterface.OnClickListener() {
@@ -922,7 +921,7 @@ public class SearchFragment extends Fragment {
                 }
             }
 
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(activity)
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity)
                     .setTitle("Replacement Errors")
                     .setMessage(sb.toString())
                     .setNegativeButton("Close", null);
@@ -1751,7 +1750,7 @@ public class SearchFragment extends Fragment {
         private void showWarningDialog() {
             SearchFragment fragment = fragmentRef.get();
             if (fragment == null) return;
-            new MaterialAlertDialogBuilder(fragment.requireContext())
+            new AlertDialog.Builder(fragment.requireContext())
                     .setTitle("Warning")
                     .setMessage("1000+ results found so far. Are you sure you wish to continue?")
                     .setPositiveButton("CONTINUE", new android.content.DialogInterface.OnClickListener() {

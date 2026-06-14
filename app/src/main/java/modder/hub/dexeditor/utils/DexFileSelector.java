@@ -38,7 +38,6 @@ package modder.hub.dexeditor.utils;
 
 import android.annotation.SuppressLint;
 import androidx.appcompat.app.AlertDialog;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Button;
@@ -129,7 +128,7 @@ public class DexFileSelector {
 			selectedItems[initialIndex] = true;
 		}
 		
-		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle("MultiDex");
 		builder.setMultiChoiceItems(fileNames, selectedItems, new DialogInterface.OnMultiChoiceClickListener() {
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {

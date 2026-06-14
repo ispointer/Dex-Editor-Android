@@ -40,12 +40,10 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import modder.hub.dexeditor.R;
 import modder.hub.dexeditor.utils.SketchwareUtil;
@@ -58,17 +56,17 @@ public class AlertProgress {
 
     private static final long DOUBLE_PRESS_INTERVAL = 2000;
     Activity activity;
-    MaterialAlertDialogBuilder process;
+    AlertDialog.Builder process;
     AlertDialog alert;
     TextView textview_mesage;
     TextView textview_title;
-    LinearProgressIndicator progress;
+    ProgressBar progress;
     private OnCancelListener cancelListener;
     private long lastBackPressTime = 0;
 
     public AlertProgress(Activity activity) {
         this.activity = activity;
-        process = new MaterialAlertDialogBuilder(activity);
+        process = new AlertDialog.Builder(activity);
         View view = View.inflate(activity, R.layout.progress_dlg, null);
         textview_mesage = view.findViewById(R.id.message);
         progress = view.findViewById(R.id.progress);
